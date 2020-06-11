@@ -20,7 +20,7 @@
 Feature: Login
   Login page to ask user for authentication
 
-  @postive
+  @positive
   Scenario: Login with correct username/password
     Given Open http://the-internet.herokuapp.com/
     And click Form Authentication link

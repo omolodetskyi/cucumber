@@ -1,5 +1,6 @@
 package cucumber;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -57,7 +58,7 @@ public class StepDefinitions extends TestBase{
 		String actualSecureAreaPageMsg=secureAreaPage.getMessage();
 		String expectedSecureAreaPageMsg="You logged into a secure area!";
 		Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
-		cleanUp(driver);
+		
 	}
 	@When("I enter incorrect {string} in username field and enter {string} in password field and click Login button")
 	public void incorrectUserName(String userName,String password) {
@@ -69,6 +70,10 @@ public class StepDefinitions extends TestBase{
 			String actualSecureAreaPageMsg=loginPage.getMessage();
 			String expectedSecureAreaPageMsg=errorMessage;
 			Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
-			cleanUp(driver);
+			
+	}
+	@After
+	public void cleanUp(){
+		cleanUp(driver);
 	}
 }

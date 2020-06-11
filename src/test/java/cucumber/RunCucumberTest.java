@@ -11,6 +11,6 @@ public class RunCucumberTest {
 */
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-@CucumberOptions(plugin = {"pretty"})
+@CucumberOptions(plugin = {"pretty", "html:target/cucumber"},tags="@positive")
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
 }
