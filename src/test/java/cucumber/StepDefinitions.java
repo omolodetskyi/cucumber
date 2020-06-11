@@ -14,7 +14,9 @@ import java.net.MalformedURLException;
 //import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import general.TestBase;
@@ -55,6 +57,7 @@ public class StepDefinitions extends TestBase{
 		String actualSecureAreaPageMsg=secureAreaPage.getMessage();
 		String expectedSecureAreaPageMsg="You logged into a secure area!";
 		Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
+		cleanUp(driver);
 	}
 	@When("I enter incorrect {string} in username field and enter {string} in password field and click Login button")
 	public void incorrectUserName(String userName,String password) {
@@ -66,10 +69,6 @@ public class StepDefinitions extends TestBase{
 			String actualSecureAreaPageMsg=loginPage.getMessage();
 			String expectedSecureAreaPageMsg=errorMessage;
 			Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
-	 }
-	@AfterMethod
-	public void cleanUp(){
-		System.out.println("Close browser");
-		cleanUp();
+			cleanUp(driver);
 	}
 }
