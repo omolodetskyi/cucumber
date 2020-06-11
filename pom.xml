@@ -27,18 +27,15 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>6.13.1</version>
+        </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
+            <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -50,6 +47,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
+             <suiteXmlFiles>
+              <suiteXmlFile>testng.xml</suiteXmlFile>
+             </suiteXmlFiles>
                     <encoding>UTF-8</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
