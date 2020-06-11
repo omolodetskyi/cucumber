@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 //import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import general.TestBase;
@@ -66,4 +67,9 @@ public class StepDefinitions extends TestBase{
 			String expectedSecureAreaPageMsg=errorMessage;
 			Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
 	 }
+	@AfterMethod
+	public void cleanUp(){
+		System.out.println("Close browser");
+		cleanUp();
+	}
 }
