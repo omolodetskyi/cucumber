@@ -56,7 +56,7 @@ public class StepDefinitions extends TestBase{
 	@Then("You logged into a secure area! message appears")
 	public void you_logged_into_a_secure_area_message_appears() {
 		String actualSecureAreaPageMsg=secureAreaPage.getMessage();
-		String expectedSecureAreaPageMsg="You logged into a secure area!";
+		String expectedSecureAreaPageMsg="You logged into a secure area!2";
 		Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
 		
 	}

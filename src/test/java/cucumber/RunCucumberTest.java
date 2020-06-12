@@ -11,6 +11,6 @@ public class RunCucumberTest {
 */
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-@CucumberOptions(plugin = {"pretty", "html:target/cucumber"})
+@CucumberOptions(plugin = {"io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"},features="/Users/alexander/Documents/workspace2/cucumber/src/test/java/features")
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
 }
