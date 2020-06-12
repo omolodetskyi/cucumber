@@ -1,24 +1,37 @@
 package cucumber;
 
+import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.qameta.allure.Allure;
 import pageObjects.LoginPage;
 import pageObjects.SecureAreaPage;
 import pageObjects.WelcomePage;
+import utils.Helpers;
+
+import java.io.File;
+import java.io.IOException;
 
 //import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 //import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
 
 import general.TestBase;
 
@@ -29,9 +42,16 @@ public class StepDefinitions extends TestBase{
 	LoginPage loginPage;
 	SecureAreaPage secureAreaPage;
 	
+		@Before
+		public void setUp() throws MalformedURLException{
+			driver=createWebDriver("chrome");
+		}
+		
+		
+	
 	@Given("Open http:\\/\\/the-internet.herokuapp.com\\/")
-	public void open_http_the_internet_herokuapp_com() throws MalformedURLException {
-		driver=createWebDriver("chrome"); 
+	public void open_http_the_internet_herokuapp_com() {
+		
 		welcomePage=new WelcomePage(driver);
 		welcomePage.openPage();
 	}
@@ -73,7 +93,12 @@ public class StepDefinitions extends TestBase{
 			
 	}
 	@After
-	public void cleanUp(){
+	public void cleanUp(Scenario scenario) throws IOException{
+		if(scenario.isFailed()){
+			String imgPath=Helpers.takeScreenshot(driver, scenario.getName());
+			Path  content=Paths.get(imgPath);
+			Allure.addAttachment("Screenshot for failed Test", Files.newInputStream(content));
+		}
 		cleanUp(driver);
 	}
 }
