@@ -65,7 +65,7 @@ public class StepDefinitions extends TestBase{
 	public void i_enter_tomsmith_in_username_field(String userName,String password) {
 		secureAreaPage=loginPage.enterUserNamePassword(userName, password);
 	}
-	@Test(description="Check that Secure Area page is opened")
+	
 	@Then("Secure Area page is opened")
 	public void secure_Area_page_is_opened() {
 		String expectedSecureAreaPageTitle="Secure Area";
@@ -84,7 +84,7 @@ public class StepDefinitions extends TestBase{
 	public void incorrectUserName(String userName,String password) {
 		secureAreaPage=loginPage.enterUserNamePassword(userName, password);
 	}
-	@Test(description="Check that error message appears")
+	
 	 @Then("{string} message appears")
 	 public void errorMessage_appears(String errorMessage) {
 			String actualSecureAreaPageMsg=loginPage.getMessage();
