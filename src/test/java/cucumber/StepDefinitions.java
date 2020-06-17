@@ -1,18 +1,28 @@
 package cucumber;
 
+
+
+import io.cucumber.core.api.Scenario;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.qameta.allure.Allure;
 import pageObjects.LoginPage;
 import pageObjects.SecureAreaPage;
 import pageObjects.WelcomePage;
+import utils.Helpers;
 
-import static org.junit.Assert.*;
-
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
 
 import general.TestBase;
 
@@ -22,10 +32,14 @@ public class StepDefinitions extends TestBase{
 	WelcomePage welcomePage;
 	LoginPage loginPage;
 	SecureAreaPage secureAreaPage;
+	@Before
+	public void setUp() throws MalformedURLException{
+		driver=createWebDriver("chrome");	
+	}
 	
 	@Given("Open http:\\/\\/the-internet.herokuapp.com\\/")
 	public void open_http_the_internet_herokuapp_com() throws MalformedURLException {
-		driver=createWebDriver("chrome"); 
+		 
 		welcomePage=new WelcomePage(driver);
 		welcomePage.openPage();
 	}
@@ -49,7 +63,7 @@ public class StepDefinitions extends TestBase{
 	@Then("You logged into a secure area! message appears")
 	public void you_logged_into_a_secure_area_message_appears() {
 		String actualSecureAreaPageMsg=secureAreaPage.getMessage();
-		String expectedSecureAreaPageMsg="You logged into a secure area!";
+		String expectedSecureAreaPageMsg="You logged into a secure area!2";
 		Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
 	}
 	@When("I enter incorrect {string} in username field and enter {string} in password field and click Login button")
@@ -62,4 +76,14 @@ public class StepDefinitions extends TestBase{
 			String expectedSecureAreaPageMsg=errorMessage;
 			Assert.assertEquals(actualSecureAreaPageMsg.contains(expectedSecureAreaPageMsg),true);
 	 }
+	 @After
+	public void tearDown(Scenario scenario) throws IOException{
+		 if(scenario.isFailed()){
+			   String imgPath=Helpers.takeScreenshot(driver, scenario.getName());
+				Path content=Paths.get(imgPath);
+				Allure.addAttachment("Screenshot for failed Test", Files.newInputStream(content)); 
+		 }
+		 cleanUp(driver);
+	 }
+	 
 }
